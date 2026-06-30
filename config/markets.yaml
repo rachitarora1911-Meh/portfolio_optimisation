@@ -1,0 +1,101 @@
+# Market configuration: ticker universe, benchmark, risk-free rate, currency, tx costs.
+# Risk-free rates: 10y G-Sec (India) and 10y UST (US), matched to portfolio horizon.
+# Verify rates against current market data at run time (data sourced mid-2026).
+
+india:
+  name: "Nifty 50 (India)"
+  currency: "INR"
+  benchmark: "^NSEI"           # Nifty 50 index — yfinance symbol
+  benchmark_etf: "NIFTYBEES.NS" # tradeable proxy for buy-and-hold backtest
+  rf_rate: 0.069               # 10y G-Sec ~6.9% (mid-2026)
+  tx_cost_bps: 10              # STT + exchange fees + slippage, per side
+  start_date: "2019-06-01"
+  end_date: "2026-06-23"
+  sectors:
+    RELIANCE.NS: "Energy"
+    TCS.NS: "IT"
+    INFY.NS: "IT"
+    HDFCBANK.NS: "Private Bank"
+    ICICIBANK.NS: "Private Bank"
+    SBIN.NS: "PSU Bank"
+    ITC.NS: "Consumer Staples"
+    HINDUNILVR.NS: "Consumer Staples"
+    LT.NS: "Industrials"
+    BHARTIARTL.NS: "Telecom"
+    KOTAKBANK.NS: "Private Bank"
+    ASIANPAINT.NS: "Materials"
+  tickers:
+    - RELIANCE.NS
+    - TCS.NS
+    - INFY.NS
+    - HDFCBANK.NS
+    - ICICIBANK.NS
+    - SBIN.NS
+    - ITC.NS
+    - HINDUNILVR.NS
+    - LT.NS
+    - BHARTIARTL.NS
+    - KOTAKBANK.NS
+    - ASIANPAINT.NS
+
+us:
+  name: "S&P 500 Subset (US)"
+  currency: "USD"
+  benchmark: "^GSPC"
+  benchmark_etf: "SPY"
+  rf_rate: 0.043               # 10y UST ~4.3% (mid-2026)
+  tx_cost_bps: 5
+  start_date: "2019-06-01"
+  end_date: "2026-06-23"
+  sectors:
+    AAPL: "Mega-cap Tech"
+    MSFT: "Mega-cap Tech"
+    NVDA: "Mega-cap Tech"
+    JPM: "Financials"
+    V: "Financials"
+    BAC: "Financials"
+    JNJ: "Healthcare"
+    UNH: "Healthcare"
+    XOM: "Energy"
+    KO: "Consumer Staples"
+    PG: "Consumer Staples"
+    HD: "Consumer Discretionary"
+  tickers:
+    - AAPL
+    - MSFT
+    - NVDA
+    - JPM
+    - V
+    - BAC
+    - JNJ
+    - UNH
+    - XOM
+    - KO
+    - PG
+    - HD
+
+# Backtest config (shared across markets)
+backtest:
+  train_start: "2019-06-01"
+  train_end: "2024-06-30"      # 5-year in-sample window for first rebalance
+  test_start: "2024-07-01"
+  test_end: "2026-06-23"
+  rebalance_freq: "Q"          # quarter-end
+  lookback_years: 5
+
+# Optimizer config
+optimize:
+  weight_min: 0.0
+  weight_max: 0.40             # per-asset cap, anti-overfit
+  aggressive_vol_cap: 0.25     # 25% annualized vol target for aggressive profile
+
+# Monte Carlo config
+monte_carlo:
+  n_simulations: 15000
+  dirichlet_alpha: 0.5         # alpha < 1 favors corner solutions; alpha = 1 is uniform; >1 concentrates near 1/N
+  seed: 42
+
+# Black-Litterman config
+black_litterman:
+  tau: 0.05                    # prior uncertainty scaling (Black & Litterman 1992)
+  risk_aversion: 2.5           # lambda for reverse-optimized equilibrium returns

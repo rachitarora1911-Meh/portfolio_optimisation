@@ -1,0 +1,123 @@
+# Black-Litterman investor views.
+# Each view = (P row, Q scalar, confidence in [0,1]).
+# P rows must sum to 0 for relative views; sum to 1 for absolute views.
+# Confidence maps to Idzorek omega: high confidence -> small omega -> view dominates posterior.
+# Defense for each view documented in 'rationale'.
+
+india:
+  - name: "IT sector outperforms broader Nifty by 3%"
+    type: "relative"
+    expected_return: 0.03
+    confidence: 0.60
+    rationale: >
+      Indian IT services have structural USD-revenue tailwind, AI-led discretionary spending
+      ramp from 2025 onward, and FY27e EPS growth ~14% (consensus). Risk: client budget
+      cyclicality if US growth stalls.
+    weights:
+      TCS.NS: 0.5
+      INFY.NS: 0.5
+      RELIANCE.NS: -0.1
+      HDFCBANK.NS: -0.1
+      ICICIBANK.NS: -0.1
+      SBIN.NS: -0.1
+      ITC.NS: -0.1
+      HINDUNILVR.NS: -0.1
+      LT.NS: -0.1
+      BHARTIARTL.NS: -0.1
+      KOTAKBANK.NS: -0.1
+      ASIANPAINT.NS: 0.0  # 10 non-IT names get -0.1 each; 11th gets 0 to keep sum=0
+
+  - name: "Private banks outperform PSU banks by 4%"
+    type: "relative"
+    expected_return: 0.04
+    confidence: 0.50
+    rationale: >
+      Private banks structurally higher ROA (~1.8% vs ~0.9% PSU), better asset quality,
+      faster deposit franchise growth. PSU re-rating partly priced in; gap narrows but
+      doesn't close given ownership-driven cost of capital.
+    weights:
+      HDFCBANK.NS: 0.5
+      ICICIBANK.NS: 0.5
+      SBIN.NS: -1.0
+
+  - name: "Consumer staples lag broader market by 2%"
+    type: "relative"
+    expected_return: -0.02
+    confidence: 0.40
+    rationale: >
+      Premium valuations (~50x FY27e for HUL) cap upside even as rural recovery improves
+      volume growth. Earnings deliver mid-single-digits while broader Nifty compounds
+      faster on financialization tailwind.
+    weights:
+      HINDUNILVR.NS: -0.5
+      ITC.NS: -0.5
+      RELIANCE.NS: 0.1
+      TCS.NS: 0.1
+      INFY.NS: 0.1
+      HDFCBANK.NS: 0.1
+      ICICIBANK.NS: 0.1
+      SBIN.NS: 0.1
+      LT.NS: 0.1
+      BHARTIARTL.NS: 0.1
+      KOTAKBANK.NS: 0.1
+      ASIANPAINT.NS: 0.0  # 10 non-staples names, 11th balances
+
+us:
+  - name: "Mega-cap tech outperforms broader portfolio by 2.5%"
+    type: "relative"
+    expected_return: 0.025
+    confidence: 0.55
+    rationale: >
+      AI capex cycle still in early innings (hyperscaler capex +25% YoY), AAPL/MSFT/NVDA
+      capturing disproportionate share of enterprise software spend. Risk: stretched
+      valuations (~30x FY27e) leave little margin if growth disappoints.
+    weights:
+      AAPL: 0.333
+      MSFT: 0.333
+      NVDA: 0.334
+      JPM: -0.111
+      V: -0.111
+      BAC: -0.111
+      JNJ: -0.111
+      UNH: -0.111
+      XOM: -0.111
+      KO: -0.111
+      PG: -0.111
+      HD: -0.112
+
+  - name: "Energy underperforms broader market by 2%"
+    type: "relative"
+    expected_return: -0.02
+    confidence: 0.45
+    rationale: >
+      Long-term energy transition headwind; near-term oil price uncertainty from OPEC+
+      capacity and demand softness if growth slows. Structural demand peak risk past
+      2030. Higher-than-baseline confidence on direction but not magnitude.
+    weights:
+      XOM: -1.0
+      AAPL: 0.091
+      MSFT: 0.091
+      NVDA: 0.091
+      JPM: 0.091
+      V: 0.091
+      BAC: 0.091
+      JNJ: 0.091
+      UNH: 0.091
+      KO: 0.091
+      PG: 0.091
+      HD: 0.091
+
+  - name: "Healthcare outperforms financials by 1.5%"
+    type: "relative"
+    expected_return: 0.015
+    confidence: 0.40
+    rationale: >
+      Defensive rotation as rate-cut cycle progresses, demographic tailwind for UNH/JNJ.
+      Financials face NIM compression if Fed cuts continue. Low conviction (0.40) — could
+      easily reverse if growth re-accelerates.
+    weights:
+      JNJ: 0.5
+      UNH: 0.5
+      JPM: -0.333
+      V: -0.333
+      BAC: -0.334

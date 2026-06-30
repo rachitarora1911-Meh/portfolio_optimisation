@@ -1,0 +1,19 @@
+{
+  "tickers": [
+    "AAPL",
+    "MSFT",
+    "NVDA",
+    "JPM",
+    "V",
+    "BAC",
+    "JNJ",
+    "UNH",
+    "XOM",
+    "KO",
+    "PG",
+    "HD"
+  ],
+  "start": "2019-06-01",
+  "end": "2026-06-23",
+  "downloaded_at": "2026-06-26T00:10:02.727437"
+}
